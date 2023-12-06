@@ -71,20 +71,3 @@ void LCD_String (char *str)		/* Send string to LCD function */
 		LCD_Char (str[i]);
 	}
 }
-
-void LCD_String_xy (char row, char pos, char *str)	/* Send string to LCD with xy position */
-{
-	if (row == 0 && pos<16)
-	  LCD_Command((pos & 0x0F)|0x80);	                  /* Command of first row and required position<16 */
-	else if (row == 1 && pos<16)
-	  LCD_Command((pos & 0x0F)|0xC0);	                  /* Command of first row and required position<16 */
-    
-	LCD_String(str);	                              	/* Call LCD string function */
-}
-
-void LCD_Clear()
-{
-	LCD_Command (0x01);		/* Clear display */
-	_delay_ms(2);
-	LCD_Command (0x80);		/* Cursor at home position */
-}
