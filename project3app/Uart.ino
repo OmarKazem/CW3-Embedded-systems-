@@ -37,34 +37,7 @@ void Uart_SendChar(unsigned char DataByte)
     UDR0 = DataByte;
 }
 
-unsigned char Uart_ReadData(void) {
-    // Wait until data is received
-    while ( ! (UCSR0A & ( 1 << RXC0)) );
-    return UDR0;
-}
 
-void Uart_ReadString(char DataString[], unsigned char Size){
-    int i;
-    for (i=0; i<Size; i++)
-    {
-        DataString[i] = Uart_ReadData();
-    }
-}
-
-unsigned char Uart_ReadNumber(unsigned char Size){
-    int i;
-    unsigned char Number = 0;
-    while ( (UCSR0A & ( 1 << RXC0)) )
-    {
-        unsigned char ReadData = Uart_ReadData();
-        if(ReadData < '0' && ReadData > '9')
-        {
-            continue;
-        }
-        Number = Number*10 + (ReadData - '0');
-    }
-    return Number;
-}
 
 void Uart_SendString(char DataString[], unsigned char Size){
     int i;
